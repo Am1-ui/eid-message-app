@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid Message</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    color: gold;
+    text-align: center;
+    padding-top: 80px;
+}
+
+/* Glow title */
+h1 {
+    font-size: 28px;
+    text-shadow: 0 0 10px gold, 0 0 20px gold;
+}
+
+/* Input */
+input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    width: 220px;
+    margin-top: 20px;
+}
+
+/* Button */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: gold;
+    color: black;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Message box */
+#message {
+    margin-top: 30px;
+    font-size: 20px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+/* Fade in animation */
+.show {
+    opacity: 1;
+}
+
+/* Floating lantern effect */
+.lantern {
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    background: gold;
+    border-radius: 10px;
+    animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); opacity: 0.3; }
+    50% { transform: translateY(-50px); opacity: 1; }
+    100% { transform: translateY(0px); opacity: 0.3; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌙 Eid Mubarak 🌙</h1>
+<p>Enter your special code</p>
+
+<input type="text" id="codeInput" placeholder="Your code">
+<br>
+<button onclick="checkCode()">Open Message</button>
+
+<div id="message"></div>
+
+<!-- lanterns -->
+<div class="lantern" style="left:20%; top:70%;"></div>
+<div class="lantern" style="left:70%; top:80%;"></div>
+
+<script>
+const messages = {
+    "081224102178": "HAPPY EID BRO.",
+    "sarah": "Eid Mubarak Sarah 🌙 You deserve happiness every day.",
+    "ali": "Ali, stay strong and keep shining ✨ Eid Mubarak!",
+    "secret123": "You are special. Don’t forget that 💛"
+};
+
+function checkCode() {
+    const code = document.getElementById("codeInput").value.toLowerCase();
+    const messageBox = document.getElementById("message");
+
+    if (messages[code]) {
+        messageBox.innerHTML = messages[code];
+    } else {
+        messageBox.innerHTML = "Invalid code ❌";
+    }
+
+    messageBox.classList.add("show");
+
+    // TRACK activity (for later hosting)
+    fetch("https://your-server.com/log", {
+        method: "POST",
+        body: JSON.stringify({ code: code }),
+        headers: { "Content-Type": "application/json" }
+    }).catch(()=>{});
+}
+</script>
+
+</body>
+</html>
